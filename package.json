@@ -1,0 +1,38 @@
+{
+  "name": "taskmate",
+  "version": "1.0.0",
+  "description": "git \r ## hey shubham here\r <!-- yoooo!!!!!!! -->",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "eslint . --ext .js --fix",
+    "format": "prettier --write .",
+    "build": "npm run clean && mkdir -p dist && cp -r src/* dist/",
+    "clean": "rm -rf dist",
+    "prepare": "husky",
+    "check": "npm run lint && npm run format"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikartikbhatt/taskmate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ikartikbhatt/taskmate/issues"
+  },
+  "homepage": "https://github.com/ikartikbhatt/taskmate#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@eslint/json": "^0.13.2",
+    "eslint": "^9.39.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
+    "prettier": "^3.6.2"
+  }
+}
