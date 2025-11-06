@@ -1,7 +1,6 @@
 const logger = require("../../helper/logger");
 const user = require("../../models/userModel");
 const encPass = require("../../helper/encPassword");
-const sendResponse = require("../../helper/sendResponse");
 
 // signup
 async function signUp(req, res) {
