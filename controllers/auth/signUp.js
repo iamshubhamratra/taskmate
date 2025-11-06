@@ -9,12 +9,7 @@ async function signUp(req, res) {
     const data = req.userData;
     console.log(data);
 
-    const { name, email, password } = data;
-
-    const existingUser = await user.findOne({ email });
-    if (existingUser) {
-      return sendResponse(res, 409, "failure", "email already exist");
-    }
+    const { name, email, password, role } = data;
 
     const hashPassword = await encPass(password, { encrypt: true });
     const newUser = new user({ name, email, password: hashPassword });

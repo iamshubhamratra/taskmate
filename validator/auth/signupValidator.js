@@ -1,5 +1,7 @@
 const logger = require("../../helper/logger");
 const sendResponse = require("../../helper/sendResponse");
+const userModel = require("../../models/userModel");
+const config = require("../../config/config.json");
 
 // email
 const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -11,7 +13,7 @@ const passwordFormat =
 // signup
 async function signupValidator(req, res, next) {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     if (!name || !email || !password) {
       return sendResponse(res, 400, "failure", "provide proper input");
@@ -44,7 +46,27 @@ async function signupValidator(req, res, next) {
       );
     }
 
-    req.userData = { name, email, password };
+    // check for duplicate entry
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      return sendResponse(
+        res,
+        400,
+        "failure",
+        "user already present kindly proceed for login"
+      );
+    }
+
+    //check for user roles
+    if (!config.userRoles.includes(role)) {
+      return sendResponse(
+        res,
+        400,
+        "failure",
+        "only user and admin roles are allowed as input"
+      );
+    }
+    req.userData = { name, email, password, role };
     logger.log({
       level: "info",
       message: "user SignupValidator passed >>>",

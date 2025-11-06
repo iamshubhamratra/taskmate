@@ -348,3 +348,8 @@
   message: 'Server Running Fine at http://localhost:8080',
   timestamp: '2025-11-06 02:05:10'
 }
+{
+  level: 'info',
+  message: 'config.json file parsing successful',
+  timestamp: '2025-11-06 14:27:02'
+}
