@@ -11,10 +11,14 @@ async function signUp(req, res) {
     const { name, email, password, role } = data;
 
     const hashPassword = await encPass(password, "encrypt");
-    const newUser = new user({ name, email, password: hashPassword,role });
+    const newUser = new user({ name, email, password: hashPassword, role });
     await newUser.save();
 
-    return sendResponse(res, 200, "success", "Signed up successfully");
+    return res.json({
+      status: "success",
+      message: "user signed up succcessfully",
+      data,
+    });
   } catch (err) {
     logger.log({
       level: "info",
