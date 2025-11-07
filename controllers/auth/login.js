@@ -3,7 +3,8 @@ const sendResponse = require("../../helper/sendResponse");
 const encPass = require("../../helper/encPassword");
 const userModel = require("../../models/userModel");
 const jwt = require("jsonwebtoken");
-const { http } = require("winston");
+
+// login
 async function login(req, res) {
   try {
     const { email, password } = req.userdata;
