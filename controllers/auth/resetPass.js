@@ -1,8 +1,10 @@
 const sendResponse = require("../../helper/sendResponse");
 const encPass = require("../../helper/encPassword");
 const userModel = require("../../models/userModel");
+const logger = require("../../helper/logger");
 
-async function resetPass(req, res, next) {
+// reset pass
+async function resetPass(req, res) {
   try {
     const { oldPassword, newPassword } = req.body;
     const userId = req.userId;
@@ -27,6 +29,9 @@ async function resetPass(req, res, next) {
     user.password = encNewPass;
     await user.save();
 
+    // clear cookies
+    res.clearCookie("taskmate");
+
     return sendResponse(res, 200, "success", "Password updated successfully");
   } catch (err) {
     logger.log({
@@ -35,8 +40,6 @@ async function resetPass(req, res, next) {
       error: err.message,
     });
   }
-
-  next();
 }
 
 module.exports = resetPass;

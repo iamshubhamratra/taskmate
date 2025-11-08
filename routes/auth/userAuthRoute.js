@@ -20,6 +20,6 @@ authRouter.post("/login", loginValidator, login);
 authRouter.get("/logout", logout);
 
 // reset Password
-authRouter.post("/resetpass", authFn, resetPassValidator, resetPass, logout);
+authRouter.post("/resetpass", authFn, resetPassValidator, resetPass);
 
 module.exports = authRouter;
