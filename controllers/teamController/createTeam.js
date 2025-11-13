@@ -1,37 +1,39 @@
-const team = require("../../models/teamModel");
+const teamModel = require("../../models/teamModel");
+const userModel = require("../../models/userModel");
 const sendResponse = require("../../helper/sendResponse");
-const generateTeamKey = require("../../helper/teamKey");
 const logger = require("../../helper/logger");
 
 // create team
-async function createTeam(req, res, next) {
+async function createTeam(req, res) {
   try {
-    const teamname = req.body?.teamname;
-    const teamdescription = req.body?.teamdescription;
-    if (!teamname) {
-      return sendResponse(res, 400, "failure", "provide team teamname");
-    }
+    const { teamname, teamdescription, teamKey } = req.createTeam;
+    const userId = req.userId;
 
-    // unique key
-    const uniqueKey = await generateTeamKey();
-    const newteam = new team({
-      teamname,
-      teamdescription,
-      teamKey: uniqueKey,
+    const getUserName = await userModel.findById(userId);
+    const createTeam = await teamModel.create({
+      adminUserId: userId,
+      teamName: teamname,
+      teamDescription: teamdescription || null,
+      teamKey: teamKey,
       role: "admin",
     });
-    await newteam.save();
+
+    // creating create team data object -->
     const data = {
-      teamname: newteam.teamname,
-      teamdescription: newteam.teamdescription,
-      role: newteam.role,
-      createdAt: newteam.createdAt,
+      adminName: getUserName?.name,
+      teamName: createTeam?.teamName,
+      teamDescription: createTeam?.teamDescription,
+      teamProfilePic: null,
+      teamKey: createTeam?.teamKey,
+      role: createTeam?.role,
+      createdAt: createTeam?.createdAt,
     };
-    return sendResponse(res, 200, "success", "team created successfully", data);
+
+    return sendResponse(res, 200, "success", "Team Created Successfully", data);
   } catch (err) {
     logger.log({
       level: "info",
-      message: "error in creatTeamController >>>>>",
+      message: "error in createTeamController >>>>>",
       error: err.message,
     });
   }

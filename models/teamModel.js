@@ -3,7 +3,12 @@ const mongoose = require("mongoose");
 // team schema
 const teamSchema = new mongoose.Schema(
   {
-    teamname: {
+    adminUserId: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    teamName: {
       type: String,
       required: [true, "Name is required"],
       trim: true,
@@ -14,7 +19,7 @@ const teamSchema = new mongoose.Schema(
       trim: true,
       unique: true,
     },
-    teamdescription: {
+    teamDescription: {
       type: String,
       trim: true,
     },
