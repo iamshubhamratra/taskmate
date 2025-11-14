@@ -1,4 +1,3 @@
-const team = require("../../models/teamModel");
 const sendResponse = require("../../helper/sendResponse");
 const generateTeamKey = require("../../helper/teamKey");
 const logger = require("../../helper/logger");
@@ -12,6 +11,23 @@ async function createTeamValidator(req, res, next) {
     const { teamname, teamdescription } = req.body;
     if (!teamname)
       return sendResponse(res, 400, "failure", "kindly send proper fields");
+    if (teamdescription.length < 8 || teamdescription.length > 200) {
+      return sendResponse(
+        res,
+        400,
+        "failure",
+        "teamdescription length must be between 8 to 200 characters"
+      );
+    }
+
+    if (teamname.length < 4 || teamname.length > 25) {
+      return sendResponse(
+        res,
+        400,
+        "failure",
+        "teamname length must be between 4 to 25 characters"
+      );
+    }
     const teamRegex = new RegExp(config.regex.teamNameRegex);
 
     if (!teamRegex.test(teamname))
