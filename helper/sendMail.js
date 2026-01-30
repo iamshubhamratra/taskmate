@@ -40,6 +40,7 @@ async function shipOTP(otp, receiver, type) {
     });
   }
 }
+
 async function loginMail({ receiver, userName, ip, device }) {
   const info = await transporter.sendMail({
     from: `"Task Mate" <${process.env.GMAIL_USER}>`,

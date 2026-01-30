@@ -31,10 +31,9 @@ async function login(req, res) {
       res.cookie("taskmate", jwtToken, { httpOnly: true, secure: false });
 
       // Collect login info
-      const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-
+      // const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+      const ip = req.headers["host"];
       const device = req.headers["user-agent"];
-
       // send login alert mail
       sendMail.loginMail({
         receiver: getUser.email,

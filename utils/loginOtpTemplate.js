@@ -37,7 +37,7 @@ function generateLoginNotificationEmail(options) {
   const {
     userName = "",
     dateTime = "Unknown",
-    ipAddress = "Unknown",
+    ip = "Unknown",
     location = "Unknown Location",
     device = "Unknown Device",
     secureAccountUrl = "#",
@@ -48,6 +48,7 @@ function generateLoginNotificationEmail(options) {
     termsUrl = "#",
   } = options;
 
+  console.log(options);
   const currentYear = new Date().getFullYear();
   const greeting = userName ? `Hello ${userName},` : "Hello,";
 
@@ -318,7 +319,7 @@ function generateLoginNotificationEmail(options) {
                     </div>
                     <div class="info-item">
                         <span class="info-label">IP Address:</span>
-                        <span class="info-value">${ipAddress}</span>
+                        <span class="info-value">${ip}</span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Location:</span>
