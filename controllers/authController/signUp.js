@@ -1,5 +1,6 @@
 const logger = require("../../helper/logger");
 const user = require("../../models/userModel");
+const SignUpMail = require("../../helper/sendMail");
 const encPass = require("../../helper/encPassword");
 const sendResponse = require("../../helper/sendResponse");
 
@@ -20,6 +21,11 @@ async function signUp(req, res) {
       designation,
     });
     await newUser.save();
+
+    await SignUpMail.SignUPMail({
+      receiver: newUser.email,
+      userName: newUser.name,
+    });
 
     return sendResponse(
       res,

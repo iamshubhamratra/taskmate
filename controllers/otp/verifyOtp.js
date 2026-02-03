@@ -4,7 +4,7 @@ const userModel = require("../../models/userModel");
 
 async function verifyOTP(req, res) {
   const otpDbDetail = req.verifyOtp;
-  //   console.log('otpdetail>>>',otpDbDetail);
+  // console.log('otpdetail>>>',otpDbDetail);
 
   try {
     otpDbDetail.status = "verified";

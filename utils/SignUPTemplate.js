@@ -1,54 +1,41 @@
 /**
- * Generate Login Notification Email HTML
+ * Generate Welcome Email HTML for Task Mate Account Creation
  *
- * This function generates a professional HTML email template for login notifications
+ * This function generates a professional HTML email template for welcoming new users
  *
  * @param {Object} options - Email template options
  * @param {string} options.userName - User's name (optional)
- * @param {string} options.dateTime - Login date and time (e.g., "Tuesday, November 18, 2025 at 10:00 AM")
- * @param {string} options.ipAddress - IP address of the login
- * @param {string} options.location - Geographic location (e.g., "Delhi, Delhi, India")
- * @param {string} options.device - Device and browser info (e.g., "Chrome on Windows")
- * @param {string} options.secureAccountUrl - URL for securing account
- * @param {string} options.viewActivityUrl - URL for viewing account activity
- * @param {string} options.contactSupportUrl - URL for contacting support
+ * @param {string} options.userEmail - User's email address
+ * @param {string} options.dashboardUrl - URL to the dashboard/app
  * @param {string} options.helpCenterUrl - URL for help center
+ * @param {string} options.contactSupportUrl - URL for contacting support
  * @param {string} options.privacyPolicyUrl - URL for privacy policy
  * @param {string} options.termsUrl - URL for terms of service
  *
  * @returns {string} Complete HTML email template
  *
  * @example
- * const emailHtml = generateLoginNotificationEmail({
+ * const emailHtml = generateWelcomeEmail({
  *   userName: "John Doe",
- *   dateTime: "Tuesday, November 18, 2025 at 10:00 AM",
- *   ipAddress: "192.168.1.1",
- *   location: "Delhi, Delhi, India",
- *   device: "Chrome on Windows",
- *   secureAccountUrl: "https://taskmate.com/security",
- *   viewActivityUrl: "https://taskmate.com/activity",
- *   contactSupportUrl: "https://taskmate.com/support",
+ *   userEmail: "john@example.com",
+ *   dashboardUrl: "https://taskmate.com/dashboard",
  *   helpCenterUrl: "https://taskmate.com/help",
+ *   contactSupportUrl: "https://taskmate.com/support",
  *   privacyPolicyUrl: "https://taskmate.com/privacy",
  *   termsUrl: "https://taskmate.com/terms"
  * });
  */
-function generateLoginNotificationEmail(options) {
+function generateWelcomeEmail(options) {
   const {
     userName = "",
-    dateTime = "Unknown",
-    ip = "Unknown",
-    location = "Unknown Location",
-    device = "Unknown Device",
-    secureAccountUrl = "#",
-    viewActivityUrl = "#",
-    contactSupportUrl = "#",
+    userEmail = "",
+    dashboardUrl = "#",
     helpCenterUrl = "#",
+    contactSupportUrl = "#",
     privacyPolicyUrl = "#",
     termsUrl = "#",
   } = options;
 
-  //   console.log(options);
   const currentYear = new Date().getFullYear();
   const greeting = userName ? `Hello ${userName},` : "Hello,";
 
@@ -57,7 +44,7 @@ function generateLoginNotificationEmail(options) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Mate - Security Alert</title>
+    <title>Welcome to Task Mate</title>
     <style>
         body {
             margin: 0;
@@ -107,56 +94,73 @@ function generateLoginNotificationEmail(options) {
             margin: 0 0 42px 0;
             line-height: 1.7;
         }
-        .info-box {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
+        .welcome-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 1px solid #3b82f6;
             border-left: 4px solid #2563eb;
             padding: 32px 30px;
             margin: 42px 0;
             border-radius: 8px;
+            text-align: center;
         }
-        .info-box h3 {
+        .welcome-box h2 {
+            margin: 0 0 16px 0;
+            font-size: 20px;
+            color: #1e40af;
+            font-weight: 600;
+        }
+        .welcome-box p {
+            margin: 0;
+            font-size: 15px;
+            color: #1e40af;
+            line-height: 1.6;
+        }
+        .features-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 32px 30px;
+            margin: 42px 0;
+        }
+        .features-box h3 {
             margin: 0 0 24px 0;
             font-size: 17px;
             color: #1e40af;
             font-weight: 600;
             letter-spacing: -0.3px;
+            text-align: center;
         }
-        .info-item {
+        .feature-item {
             display: flex;
-            margin-bottom: 18px;
+            align-items: flex-start;
+            margin-bottom: 20px;
             font-size: 14px;
-            align-items: baseline;
         }
-        .info-item:last-child {
+        .feature-item:last-child {
             margin-bottom: 0;
         }
-        .info-label {
-            font-weight: 600;
-            color: #374151;
-            min-width: 140px;
-            flex-shrink: 0;
-        }
-        .info-value {
-            color: #6b7280;
-            flex: 1;
-        }
-        .alert-box {
-            background: linear-gradient(to right, #fef3c7, #fef9e7);
-            border: 1px solid #f59e0b;
-            border-radius: 8px;
-            padding: 24px 28px;
-            margin: 42px 0;
-        }
-        .alert-box p {
-            margin: 0;
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            background-color: #2563eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: bold;
             font-size: 14px;
-            color: #92400e;
-            line-height: 1.7;
+            margin-right: 12px;
         }
-        .alert-box strong {
-            font-weight: 700;
-            color: #78350f;
+        .feature-text {
+            flex: 1;
+            color: #374151;
+            line-height: 1.6;
+        }
+        .feature-text strong {
+            color: #1f2937;
+            font-weight: 600;
         }
         .button-container {
             text-align: center;
@@ -165,33 +169,38 @@ function generateLoginNotificationEmail(options) {
         }
         .button {
             display: inline-block;
-            background-color: #dc2626;
+            background-color: #2563eb;
             color: #ffffff !important;
             text-decoration: none;
-            padding: 16px 40px;
+            padding: 16px 48px;
             border-radius: 8px;
             font-weight: 600;
             font-size: 15px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
-            margin: 10px 15px;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+            margin: 10px;
         }
         .button:hover {
-            background-color: #b91c1c;
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            background-color: #1d4ed8;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
             transform: translateY(-1px);
         }
-        .secondary-button {
-            background-color: #2563eb;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+        .info-box {
+            background: linear-gradient(to right, #fef3c7, #fef9e7);
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 24px 28px;
+            margin: 42px 0;
         }
-        .secondary-button:hover {
-            background-color: #1d4ed8;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        .info-box p {
+            margin: 0;
+            font-size: 14px;
+            color: #92400e;
+            line-height: 1.7;
         }
-        .button-wrapper {
-            display: inline-block;
-            margin: 0 8px;
+        .info-box strong {
+            font-weight: 700;
+            color: #78350f;
         }
         .divider {
             border: 0;
@@ -204,6 +213,7 @@ function generateLoginNotificationEmail(options) {
             margin: 35px 0 0 0;
             line-height: 1.8;
             padding: 0;
+            text-align: center;
         }
         .help-text a {
             color: #2563eb;
@@ -273,16 +283,13 @@ function generateLoginNotificationEmail(options) {
                 display: block;
                 margin: 15px auto;
                 max-width: 280px;
+                padding: 16px 24px;
             }
-            .button-wrapper {
-                display: block;
-                margin: 0;
-            }
-            .info-item {
+            .feature-item {
                 flex-direction: column;
             }
-            .info-label {
-                margin-bottom: 6px;
+            .feature-icon {
+                margin-bottom: 8px;
             }
             .footer {
                 padding: 35px 28px;
@@ -291,73 +298,88 @@ function generateLoginNotificationEmail(options) {
                 display: inline-block;
                 margin: 10px 12px;
             }
+            .welcome-box,
+            .features-box {
+                padding: 24px 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="email-wrapper">
         <div class="email-container">
-            <!-- Header -->
             <div class="header">
                 <h1>Task Mate</h1>
             </div>
-
-            <!-- Content -->
             <div class="content">
                 <p class="greeting">${greeting}</p>
                 
                 <p class="message">
-                    We detected a new sign-in to your Task Mate account. If this was you, you can safely ignore this email. If you don't recognize this activity, please secure your account immediately.
+                    Thank you for creating your Task Mate account! We're excited to have you join our community of productive teams and individuals who are transforming the way they manage tasks and collaborate.
                 </p>
 
-                <!-- Login Information Box -->
-                <div class="info-box">
-                    <h3>Sign-in Details</h3>
-                    <div class="info-item">
-                        <span class="info-label">Date & Time:</span>
-                        <span class="info-value">${dateTime}</span>
+                <div class="welcome-box">
+                    <h2>🎉 Welcome to Task Mate!</h2>
+                    <p>Your account has been successfully created and is ready to use. Let's get you started on your journey to better productivity and seamless team collaboration.</p>
+                </div>
+
+                <div class="features-box">
+                    <h3>What You Can Do with Task Mate</h3>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-text">
+                            <strong>Create & Manage Tasks:</strong> Organize your work with intuitive task creation, assignment, and tracking features designed for individual and team productivity.
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">IP Address:</span>
-                        <span class="info-value">${ip}</span>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-text">
+                            <strong>Team Collaboration:</strong> Invite team members, assign roles, and collaborate seamlessly on projects with real-time updates and notifications.
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Location:</span>
-                        <span class="info-value">${location}</span>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-text">
+                            <strong>File Uploads:</strong> Attach important documents, images, and files to your tasks for easy access and reference.
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Device:</span>
-                        <span class="info-value">${device}</span>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-text">
+                            <strong>Real-time Tracking:</strong> Stay updated with live status changes, progress tracking, and instant notifications for all your tasks.
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-text">
+                            <strong>Secure & Private:</strong> Your data is protected with industry-standard security measures and encrypted storage.
+                        </div>
                     </div>
                 </div>
 
-                <!-- Security Alert -->
-                <div class="alert-box">
-                    <p>
-                        <strong>Security Notice:</strong> If you didn't sign in from this device or location, your account may be compromised. Please secure your account immediately by changing your password and reviewing your recent activity.
-                    </p>
-                </div>
-
-                <!-- Action Buttons -->
                 <div class="button-container">
-                    <div class="button-wrapper">
-                        <a href="${secureAccountUrl}" class="button">Secure My Account</a>
-                    </div>
-                    <div class="button-wrapper">
-                        <a href="${viewActivityUrl}" class="button secondary-button">View Activity</a>
-                    </div>
+                    <a href="${dashboardUrl}" class="button">Get Started Now</a>
+                </div>
+
+                <div class="info-box">
+                    <p>
+                        <strong>Quick Tip:</strong> Complete your profile by adding a profile picture and adding other details for better Task Mate expreience. You can do this anytime from your account settings.
+                    </p>
                 </div>
 
                 <hr class="divider">
 
-                <!-- Help Text -->
                 <p class="help-text">
-                    If you didn't request this sign-in notification or if you have concerns about your account security, please 
-                    <a href="${contactSupportUrl}">contact our support team</a> immediately.
+                    Need help getting started? Check out our <a href="${helpCenterUrl}">Help Center</a> or 
+                    <a href="${contactSupportUrl}">contact our support team</a>. We're here to help you succeed!
                 </p>
             </div>
 
-            <!-- Footer -->
             <div class="footer">
                 <p class="footer-text">Best regards,<br><strong>The Task Mate Team</strong></p>
                 
@@ -377,4 +399,5 @@ function generateLoginNotificationEmail(options) {
 </html>`;
 }
 
-module.exports = generateLoginNotificationEmail;
+// Export for use in Node.js modules
+module.exports = generateWelcomeEmail;

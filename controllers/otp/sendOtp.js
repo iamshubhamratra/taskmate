@@ -26,7 +26,12 @@ async function sendOTP(req, res) {
     });
 
     if (user.otpType == "email") {
-      await shipOTP(otp, user.email, user.otpType);
+      shipOTP.shipOTP({
+        otp: otp,
+        receiver: user.email,
+        type: user.otpType,
+      });
+
       return sendResponse(
         res,
         200,
@@ -35,7 +40,11 @@ async function sendOTP(req, res) {
         otp
       );
     } else if (user.otpType == "mobile") {
-      await shipOTP(otp, user.mobile, user.otpType);
+      await shipOTP.shipOTP({
+        otp: otp,
+        receiver: user.mobile,
+        type: user.otpType,
+      });
       return sendResponse(
         res,
         200,
@@ -55,9 +64,7 @@ async function sendOTP(req, res) {
       level: "error",
       message: `Failed to send OTP: ${error.message}`,
     });
-    return res
-      .status(500)
-      .json(await sendResponse(res, 500, "failure", "Failed to send OTP"));
+    return sendResponse(res, 500, "failure", "Failed to send OTP");
   }
 }
 

@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 const otpTemplate = require("../utils/otpTemplate");
 const loginAlertTemplate = require("../utils/loginOtpTemplate");
+const SignUpTemplate = require("../utils/SignUPTemplate");
 const logger = require("./logger");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -14,7 +15,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // ship otp
-async function shipOTP(otp, receiver, type) {
+async function shipOTP({ otp, receiver, type }) {
   if (type == "email") {
     const info = await transporter.sendMail({
       from: `"Task Mate" <${process.env.GMAIL_USER}>`,
@@ -57,9 +58,25 @@ async function loginMail({ receiver, userName, ip, device }) {
   });
   logger.log({
     level: "info",
-    message: "OTP on mail sent Successfully",
+    message: "Login alert mail sent successfully",
+    messageId: info.messageId,
+  });
+}
+async function SignUPMail({ receiver, userName }) {
+  const info = await transporter.sendMail({
+    from: `"Task Mate" <${process.env.GMAIL_USER}>`,
+    to: receiver,
+    subject: "🔔 Task Mate SignUp",
+    html: SignUpTemplate({
+      dateTime: new Date().toLocaleString(),
+      userName,
+    }),
+  });
+  logger.log({
+    level: "info",
+    message: "Welcom mail sent successfully",
     messageId: info.messageId,
   });
 }
 
-module.exports = { shipOTP, loginMail };
+module.exports = { shipOTP, loginMail, SignUPMail };
