@@ -47,6 +47,7 @@ async function login(req, res) {
         email: getUser.email,
         name: getUser.name,
         role: getUser.role,
+        Bio: getUser.Bio,
       });
     }
   } catch (err) {
