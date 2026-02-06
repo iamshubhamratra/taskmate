@@ -9,7 +9,7 @@ async function signUp(req, res) {
   try {
     const data = req.userData;
 
-    const { name, email, password, role, designation } = data;
+    const { name, email, password, role, designation, Bio } = data;
 
     const hashPassword = await encPass(password, "encrypt");
 
@@ -19,6 +19,7 @@ async function signUp(req, res) {
       password: hashPassword,
       role,
       designation,
+      Bio,
     });
     await newUser.save();
 
