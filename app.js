@@ -22,12 +22,18 @@ logger.log({
 });
 
 //Allow all origins (dev mode)
+const origin = [
+  "http://localhost:3000",
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: origin ,
     credentials: true,
   })
 );
+
 logger.log({
   level: "info",
   message: `CORS configured to allow requests from ${process.env.CLIENT_URL}`,
@@ -44,6 +50,7 @@ logger.log({
 });
 
 //server init when db connection is successful.
+const PORT = process.env.PORT || process.env.SERVERPORT || 8080;
 connectToDb()
   .then(() => {
     app.listen(process.env.SERVERPORT, () => {

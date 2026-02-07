@@ -28,7 +28,7 @@ async function login(req, res) {
       );
 
       //send cookies
-      res.cookie("taskmate", jwtToken, { httpOnly: true, secure: false });
+      res.cookie("taskmate", jwtToken, { httpOnly: true, secure: true, sameSite: "none" });
 
       // Collect login info
       const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
