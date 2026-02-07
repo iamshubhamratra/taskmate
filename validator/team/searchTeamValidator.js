@@ -31,6 +31,7 @@ async function searchTeamValidator(req, res, next) {
     if (!findTeamKey) {
       return sendResponse(res, 400, "failure", "team does not exists");
     }
+    next();
 
     req.searchTeam = teamKey;
   } catch (err) {
@@ -40,7 +41,6 @@ async function searchTeamValidator(req, res, next) {
       error: err.message,
     });
   }
-  next();
 }
 
 module.exports = searchTeamValidator;
