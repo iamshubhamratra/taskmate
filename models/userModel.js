@@ -43,7 +43,11 @@ const userSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
     },
-    Bio: {
+    bio: {
+      type: String,
+      trim: true,
+    },
+    location: {
       type: String,
       trim: true,
     },

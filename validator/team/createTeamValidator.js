@@ -11,6 +11,16 @@ async function createTeamValidator(req, res, next) {
     const { teamName, teamDescription } = req.body;
     if (!teamName)
       return sendResponse(res, 400, "failure", "kindly send proper fields");
+    
+    if (teamName.length < 4 || teamName.length > 25) {
+      return sendResponse(
+        res,
+        400,
+        "failure",
+        "teamName length must be between 4 to 25 characters"
+      );
+    }
+
     if (teamDescription.length < 8 || teamDescription.length > 200) {
       return sendResponse(
         res,
@@ -20,14 +30,6 @@ async function createTeamValidator(req, res, next) {
       );
     }
 
-    if (teamName.length < 4 || teamName.length > 25) {
-      return sendResponse(
-        res,
-        400,
-        "failure",
-        "teamName length must be between 4 to 25 characters"
-      );
-    }
     const teamRegex = new RegExp(config.regex.teamNameRegex);
 
     if (!teamRegex.test(teamName))
@@ -52,14 +54,16 @@ async function createTeamValidator(req, res, next) {
 
     //attach the filtered request to request handler
     req.createTeam = { teamName, teamDescription, teamKey };
+
+    next();
+
   } catch (err) {
     logger.log({
       level: "info",
-      message: "error in createTeamController >>>>>",
+      message: "error in createTeamValidator >>>>>",
       error: err.message,
     });
   }
-  next();
 }
 
 module.exports = createTeamValidator;

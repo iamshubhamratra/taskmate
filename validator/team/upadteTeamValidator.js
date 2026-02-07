@@ -33,7 +33,7 @@ async function updateTeamNameValidator(req, res, next) {
     }
 
 
-    if (!newTeamName && !teamDescription) {
+    if (!newTeamName && !newTeamDescription) {
       return sendResponse(res, 400, "failure", "provide proper inputs");
     }
     if (newTeamName) {

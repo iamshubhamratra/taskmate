@@ -1,6 +1,7 @@
 const teamModel = require("../../models/teamModel");
 const sendResponse = require("../../helper/sendResponse");
 const logger = require("../../helper/logger");
+const { error } = require("winston");
 
 // search team
 async function SearchTeam(req, res) {
@@ -22,7 +23,7 @@ async function SearchTeam(req, res) {
     logger.log({
       level: "info",
       message: "error in searchTeamNameController >>>>>",
-      error: err.message,
+      error: error.message,
     });
   }
 }

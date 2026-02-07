@@ -8,7 +8,7 @@ async function updateTeamName(req, res) {
     const userId = req.userId;
     const { team, newTeamName, newTeamDescription } = req.updateTeam;
 
-    if (newTeamName) {
+    if (newTeamName !== undefined) {
       team.teamName = newTeamName;
     }
 
@@ -30,6 +30,7 @@ async function updateTeamName(req, res) {
     // console.log(newteam);
 
     return sendResponse(res, 200, "success", "team name updated", newteam);
+    
   } catch (err) {
     logger.log({
       level: "info",
