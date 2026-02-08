@@ -10,7 +10,7 @@
     "format": "prettier --write .",
     "build": "npm run clean && mkdir -p dist && cp -r src/* dist/",
     "clean": "rm -rf dist",
-    "prepare": "husky",
+    "prepare": "echo 'husky disabled on prod'",
     "check": "npm run lint && npm run format"
   },
   "repository": {
