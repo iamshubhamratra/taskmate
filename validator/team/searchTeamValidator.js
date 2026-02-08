@@ -31,9 +31,12 @@ async function searchTeamValidator(req, res, next) {
     if (!findTeamKey) {
       return sendResponse(res, 400, "failure", "team does not exists");
     }
-    next();
 
     req.searchTeam = teamKey;
+
+    next();
+
+
   } catch (err) {
     logger.log({
       level: "info",

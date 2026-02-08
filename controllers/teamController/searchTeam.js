@@ -1,7 +1,6 @@
 const teamModel = require("../../models/teamModel");
 const sendResponse = require("../../helper/sendResponse");
 const logger = require("../../helper/logger");
-const { error } = require("winston");
 
 // search team
 async function SearchTeam(req, res) {
@@ -10,20 +9,25 @@ async function SearchTeam(req, res) {
     // console.log(teamKey);
 
     const listTeam = await teamModel.findOne({teamKey});
-    // console.log(listTeam);
 
-    const data = {
+    // console.log(listlistTeam);
+       if (!listTeam) {
+      return sendResponse(res, 404, "failure", "team not found");
+    }
+
+    const team = {
       adminId: listTeam?.adminUserId,
       teamName: listTeam?.teamName,
       teamDescription: listTeam?.teamDescription,
+      teamKey:listTeam?.teamKey,
     };
 
-    return sendResponse(res, 200, "success", "team found", data);
+    return sendResponse(res, 200, "success", "team found", team);
   } catch (err) {
     logger.log({
       level: "info",
       message: "error in searchTeamNameController >>>>>",
-      error: error.message,
+      error: err.message,
     });
   }
 }
