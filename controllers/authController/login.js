@@ -30,8 +30,8 @@ async function login(req, res) {
       //send cookies
       res.cookie("taskmate", jwtToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        secure: true,
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
         path: "/",
       });
@@ -44,11 +44,11 @@ async function login(req, res) {
 
       // send login alert mail
       sendMail.loginMail({
-          receiver: getUser.email,
-          userName: getUser.name,
-          ip,
-          device,
-        })
+        receiver: getUser.email,
+        userName: getUser.name,
+        ip,
+        device,
+      })
         .catch(err => {
           console.error("Login mail failed:", err.message);
         });
